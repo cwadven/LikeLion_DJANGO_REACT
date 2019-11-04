@@ -1,0 +1,107 @@
+JSX란!
+Javascripts XML 이라고 한다!
+
+HTML과 CSS과 비슷한 것이다!!
+
+핵심 특징
+1. 태그 이름은 기존 HTML과 거의 유사
+2. Attributes나 css는 낙타(카멜) 방식이다.. (className, textAlign) <-- 첫번째 문자는 소문자하고 그다음이 대문자
+3. js코드를 활용하고 싶다면 {}를 이용한다
+특이사항 : and 가 없다!!
+
+할것!!
+1. App.js에서 바꿔본다
+
+function App() { //컴포넌트!!  요것들이 JSX이다!!
+  return (
+    <div className="App">
+    <h1 style={{'color: red;'}}>안녕하세요</h1> //{}요롷게 해야된다!!!
+      <table>
+      <tr><td>1</td></tr>
+      <tr><td>2</td></tr>
+      </table>
+    </div>
+  );
+}
+
+<h1 style={{color: 'red'}}>안녕하세요</h1>
+style={} 첫번째 중괄호 : 여기에 Javascripts 코드가 들어갈꺼야!!!
+2번쨰 중괄호 : 객체여서!
+
+이방식 말고 혹은 function App() 위에
+
+const myStyle = {color: 'red'} 를하고
+style={myStyle} 가능!!
+
+2. const myStyle를 좀더 넣어보자!!
+const myStyle = {
+    color: 'red',
+    font-weight: 700,
+}
+
+여기서 문제가 된다
+font-weight --> 이거를 낙타(카멜)방식으로 바꿔야 한다!!
+fontWeight로 바꿔야된다!!
+
+즉 이 뜻은 html과 살짝 다르다는 뜻이다!!
+
+const myStyle = {
+    color: 'red',
+    fontWeight: 700,
+}
+
+3. 하지만 이걸 관리할 때는 className으로 관리해야된다!!
+
+function App() { //컴포넌트!!  요것들이 JSX이다!! //{}요롷게 해야된다!!! style
+  return (
+    <div className="App">
+    <h1 className={'myStyle'}>안녕하세요</h1> 
+      <table>
+      <tr><td>1</td></tr>
+      <tr><td>2</td></tr>
+      </table>
+    </div>
+  );
+}
+
+이건 App.css에서 관리가 된다!!
+
+.myStyle {
+  color: red;
+  font-weight: 900;
+}
+
+이거를 App.css에 쓰고 className={'myStyle'}을 이용해서 사용한다!!
+
+
+4. 수정해보자!!
+function App() {
+  return (
+    <div className="App">
+    <h1 className={'myStyle'}>안녕하세요</h1> 
+      <div className={'post'}>
+        첫 게시글 입니다!
+      </div>
+    </div>
+  );
+}
+div를 하나 더 만들어서 className post를 가져온다! 그후에 App.css에서 .post를 해서 스타일을 지정!
+.post{
+  width: 600px;
+  padding: 5%;
+  margin: auto;
+  border: 1px solid #444444
+}
+
+
+결론
+스타일를 적용하려면
+1. style={{color: 'red'}} -- 직접(낙타 카멜 방식)      //JSX -> HTML 태그, JSX -> style을 통해 css(jsx) 
+
+2. const myStyle = { -- 상수를 이용해서 설정후 {{}} 2번 말고 1번만할때(낙타 카멜 방식)  //JSX -> style을 통해 css(jsx)
+    color: 'red',
+    fontWeight: 700,
+}
+style={myStyle}
+
+3. className={''}를이용해서 -- css를 이용해서! css문법 사용

@@ -1,0 +1,29 @@
+2_1:
+React를 쓰는 이유! (왜?!!)
+
+jQuery 1위
+React.js 2위
+
+React의 장점 :
+
+DOM이란?
+Document Object Model (거대한 트리 구조 같은 느낌) HTML
+
+Component란? HTML 같은 느낌이다 html 안에 body 안에 div 안에 이런것!
+
+2_2:
+AJAX 같은 느낌을 설명중!
+
+Props가 변경사항이 생겼을 때 자식으로 넘겨주는 것
+
+각각의 state 상태들이 존재
+
+컴포넌트들!
+
+완벽한 AJAX 같은 느낌을 만들려고 하는 것 같아!!!
+
+상호작용이 많은 UI
+효율적인 컴포넌트 갱신 및 렌더링
+스스로 상태관리하는 컴포넌트
+DOM과 별개로 상태관리
+앱 안 데이터 손쉽게 전달

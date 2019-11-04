@@ -1,0 +1,49 @@
+1. npm은 javascripts의 패키지이다
+2. 다양한 라이브러리를 관리해주는 도구이다. (pip라는 것처럼 비슷하다고 생각하면된다)
+
+npm의 특징
+1. 개별 프로젝트 폴더에 따로 설치 가능
+2. 전체적으로 사용하도록 설치도 가능 (-g, global)
+3. 사용은 주로 npm으로 시작
+4. npx : 따로 모듈 설치 없이 사용할 수 있게 해주는 툴
+
+pip install django 이런것 있는데, 하면 전체 폴더에서 설치가됨!!! (파이썬 폴더에 전부 설치가 됨!!!)
+npm은 개별 프로젝트 폴더에 설치를 함!! (뭔가 가상느낌?)
+npm install react
+
+실습--------------------------
+
+1. node.js 에서 설치
+2. 빈폴더를 하나 만들고(현재폴더)에
+npx create-react-app lion-app
+
+3. cd lion-app
+4. npm start
+
+5. 생성한 모듈들은 node_modules안에 들어가게 된다!!
+
+6. 가장 핵심적인 것은
+App.js --> index.js --> index.html
+
+7. 흔히 <h1></h1> 같은게 있는데
+안에 없으면 <img/> 같은 느낌!
+
+8. React는 뭔가 import를 할때 파이썬이랑 반대 느낌이다!!
+import React from 'react' 느낌!!!
+
+9. App.js에서
+//컴포넌트 수출!!
+export default App;
+default 의미 : 이 파일은 default(기본적으로, 이거 하나만) export하겠다 라는 뜻
+
+만약에 function App2(){ 가있다면!!
+}
+export default App2; 하면 App2에 있는 녀석이 나간다!!
+
+결론!!
+1. App.js 에서 만들어서 function을 만들고 return을 한다
+return 한 놈을 App.js 마지막에 export default App;을 해서 그녀석을 다른 곳으로 수출한다!!
+
+2. index.js에서 import App from './App'을 해서 수출된 녀석을 수입해온다!!
+그러고 index.html에 적용된 document.getElement.... 그곳에 맞는 id에
+ReactDom.render(<App/>, document.getElement....); 해서 이거를 index.html에 있는 id에 뿌려준다!!!   

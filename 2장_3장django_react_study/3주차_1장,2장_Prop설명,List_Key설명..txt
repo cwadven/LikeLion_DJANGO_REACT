@@ -1,0 +1,124 @@
+Prop는 Read Only --> 꼭 중요
+
+실습!!
+1. npm start
+
+2. 새로운 컴포넌트를 생성하자!! 컴포넌트는 function으로 생성 가능!! 컴포넌트의 규칙!! 최상단에는 하나의 열고 닫음만 있다!
+function WorldClock(props){
+    return(
+        <div>
+        </div>
+    );
+}
+
+안되는 경우
+function WorldClock(props){
+    return(
+        <div>
+        </div>
+        <div> // --> 이거 2개 있으면 안됨!! 최상위는 무조건 1개만
+        </div>
+    );
+}
+
+3. 그 컴포넌트 안에 있는 div에 클래스를 설정해 준다!
+function WorldClock(props){
+    return(
+        <div className="WorldClock"> //--> string 하나 일때는 {} 해도 되고 안해도 된다고 한다! 하면 
+        //<div className={"WorldClock"}>
+        </div>
+    );
+}
+
+4. props를 불러와보자
+function WorldClock(props){
+    return(
+        <div className="WorldClock">
+            <h2>도시 : {props.city}</h2> //props로 불러오도록 해보자!!
+            <p>시간 : {props.time}</p>
+        </div>
+    );
+}
+
+function App() { //컴포넌트!!  요것들이 JSX이다!! //{}요롷게 해야된다!!! style
+  return (
+    <div className="App">
+    <h1 className={'myStyle'}>안녕하세요</h1> 
+      <div className={'post'}>
+        첫 게시글 입니다!
+      </div>
+    <WorldClock/>  <--------- 요거를 추가함(컴포넌트 추가)
+    </div>
+  );
+}
+
+5. 이제 props에 정보를 넣어서 보내보자
+function App() { //컴포넌트!!  요것들이 JSX이다!! //{}요롷게 해야된다!!! style
+  return (
+    <div className="App">
+    <h1 className={'myStyle'}>안녕하세요</h1> 
+      <div className={'post'}>
+        첫 게시글 입니다!
+      </div>
+    <WorldClock city={'서울'} time={10}/>  <--------- 컴포넌트에 자체적으로 props가 이런 식으로 만들어 지는거구나!! 생각
+    </div>
+  );
+}
+
+6. 한번 여러개를 써보자!!
+function App() { //컴포넌트!!  요것들이 JSX이다!! //{}요롷게 해야된다!!! style
+  return (
+    <div className="App">
+    <h1 className={'myStyle'}>안녕하세요</h1> 
+      <div className={'post'}>
+        첫 게시글 입니다!
+      </div>
+      <WorldClock city={'서울'} time={10}/>
+      <WorldClock city={'베이징'} time={9}/>
+      <WorldClock city={'시드니'} time={8}/>
+      <WorldClock city={'LA'} time={17}/>
+    </div>
+  );
+}
+
+7. 
+<WorldClock city={'서울'} time={10}/>
+<WorldClock city={'베이징'} time={9}/>
+<WorldClock city={'시드니'} time={8}/>
+<WorldClock city={'LA'} time={17}/>
+중복이 되는데! 효율적으로 사용해보자
+
+function App() { 
+const cityTimeDate = [ //변하는 녀석을 이렇게 만들어서 처리를 한다 하나의 const를 만들어서 리스트에 집어 넣는다
+    ['서울', 10],
+    ['베이징', 9],
+    ['시드니', 12],
+    ['LA', 17]
+]
+
+const WorldClockList = cityTimeDate.map((citytime)=><WorldClock city={citytime[0]} time={citytime[1]}/>)
+
+return (
+<div className="App">
+<h1 className={'myStyle'}>안녕하세요</h1> 
+    <div className={'post'}>
+    첫 게시글 입니다!
+    </div>
+    {WorldClockList}
+</div>
+);
+}
+
+8. props를 이용할때 하나의 추가적인 Key가 필요하다!!
+const WorldClockList = cityTimeDate.map((citytime)=><WorldClock city={citytime[0]} time={citytime[1]} key={}/>)
+유일한 키를 위해서 map 함수에 index를 받아오자
+
+const WorldClockList = cityTimeDate.map((citytime, index)=><WorldClock city={citytime[0]} time={citytime[1]} key={index}/>)
+
+const WorldClockList = cityTimeDate.map((citytime, index)=><WorldClock city={citytime[0]} time={citytime[1]} key={index}/>)
+여기에서 citytime은 cityTimeDate의 리스트들이고, index는 그에 따른 순번을 자동으로 생성해준다!
+.map함수란!!
+
+9.
+key란 그러면 뭘까??
+무언가를 구분하기 위해서 음... 디비에 있는 프라이베잇 키 같은 느낌!!
