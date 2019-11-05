@@ -1,0 +1,99 @@
+state(상태)
+1. 상태는 있을 수도 있고 없을 수도 있다.
+정말 필요한 곳에만 state에 넣는것이 중요한 포인트이다
+
+i. Props만으로도 표현할 수 있는가
+ii. Render로 표시되지 않는 값인가
+iii. 위 2개에 해당되지 않는다면 State로!!
+
+Function, Class!!
+Function은 state를 표현할 수 없다!!(옛날!!) 하지만 hook으로 할수가 있다!!!!!!!!!!
+
+Class 실습!!
+1. Class Component 만들기!! (요구사항: 시간과 분이 변화하는 것을 보고 싶다! 동적으로 보고 싶다!!)
+function WorldClock(props){
+  return(
+      <div className={"WorldClock"}>
+        <h2>도시 : {props.city}</h2> 
+        <p>시간 : {props.time} 시</p>
+      </div>
+  );
+}
+이 function을 class로 바꿀 것이다!!
+
+class WorldClock extends React.Component {
+    constructor(props){ //constructor은 init과 같은 맨처음에 넣어주는 녀석! 1장에서 보면 알 것임!!
+        super(props) //WorldClock이라는 상위 클래스에 상속을 받을 때! 물려 받고 싶을때 사용하는 녀석! 즉 React.Component에서 받는 것! 이러면 React.Component라는 녀석의 기능을 고스란히 쓸 수 있다!
+        this.state = {
+            hour: this.props.time,
+            minute: 0
+        } //상태를 저장할 수 있다!!
+    }
+
+    render(){ //하나의 약속된 함수!! React.Component가 읽어서 보여줄 것이다!! 라는 함수!! python에 render 같은 느낌!!
+        return(
+      <div className={"WorldClock"}>
+        <h2>도시 : {this.props.city}</h2> 
+        <p>시간 : {this.state.hour}시 {this.state.minute}분</p>
+      </div>
+    );
+    }
+}
+
+그리고 마지막으로 주석처리 function을 한다!!
+
+2. state를 동적으로 바꾸기!
+this.setState으로 state를 바꿔줘야된다
+생각할때
+this.state.minute += 1; 로하면 되지 않냐? 라는 생각을 하는데 이미 정해져 있는 사항이여서 안된다!!
+this.setState.minute += 1; 을 해야된다!! 뭐가 변하는지 안 변하는지 알아야 된다!
+
+this.state.minute += 1;로 하면 변화 됬는지 모름!!!
+
+3. 사용방법
+this.setState({}) //여기에 있는 {}괄호는 state에 있는 괄호랑 똑같다라고 생각하면 된다!
+
+this.state = {
+            hour: this.props.time,
+            minute: 0
+        } //여기에 있는 {}괄호 안이라고 생각하면 된다!!
+
+this.setState({minute: 1})
+
+4. 그래서 주기적으로 바꿔주기 위해!!
+setInterval()을 이용해서 주기적으로 바꿔준다! setInterval역할은 javascripts에서 자체적인 역할로 시간에 따라 그 함수를 실행하는 함수! 
+
+예) setInterval(()=>{console.log("!!!")}, 1000); //이런식으로 1초단 안에있는 arrow함수를 실행한다!
+
+setInterval(()=>{
+    this.setState({minute: 1}) //1초마다 1분씩 늘어나게 만든다!!
+}, 1000)
+
+5. 추가적으로 this.setState에 {}이거만 넣지 않고 함수로 설정!!
+setInterval(()=>{
+    this.setState((state)=>({minute: state.minute+1})) //1초마다 1분씩 늘어나게 만든다!! 일단 애매한게 (state)는 감싼다고 치자! 근데 왜 ({minute:state.minute+1})을 또 감쌈?
+}, 1000)
+
+6. 분 같은 경우는 계속 올라간다! hour도 올릴려고 하자! 그럴 경우는 ! 59분 이 되었을 때 0으로 가고 hour는 1 증가!!
+setState안에 조건문을 넣을 수가 있다!!
+setInterval(()=>{
+    this.setState((state)=>(
+        state.minute === 59 ? {
+            hour: state.hour + 1,
+            minute: 0
+        } : {
+            minute: state.minute+1
+        } // 삼항연산자!!
+        
+        )) //1초마다 1분씩 늘어나게 만든다!! 일단 애매한게 (state)는 감싼다고 치자! 근데 왜 ({minute:state.minute+1})을 또 감쌈?
+}, 100)
+
+7.
+setInterval(()=>{ //이 함수는 24시 일 경우에는 0시로 나타내게 만드는 삼항연산자를 이용했다!
+        this.setState((state)=>(
+            state.minute === 59 ? state.hour === 23 ? {hour:-1} : {hour: state.hour + 1,minute: 0,} : {minute: state.minute+1} // 삼항연산자!!
+          )
+        ) //0.01초마다 1분씩 늘어나게 만든다!! 일단 애매한게 (state)는 감싼다고 치자! 근데 왜 ({minute:state.minute+1})을 또 감쌈?
+    }, 10)
+
+if문을 이용하려면 이상한거 필요한것 같아서 일단 보류 했음!!
