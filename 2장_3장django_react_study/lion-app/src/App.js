@@ -16,10 +16,11 @@ class WorldClock extends React.Component {
       super(props) //WorldClock이라는 상위 클래스에 상속을 받을 때! 물려 받고 싶을때 사용하는 녀석! 즉 React.Component에서 받는 것! 이러면 React.Component라는 녀석의 기능을 고스란히 쓸 수 있다!
       this.state = {
           hour: this.props.time,
-          minute: 0
+          minute: 0,
+          stop: false,
       } //상태를 저장할 수 있다!!
 
-      setInterval(()=>{
+      this.timer = setInterval(()=>{
         this.setState((state)=>(
             state.minute === 59 ? state.hour === 23 ? {hour:-1} : {hour: state.hour + 1,minute: 0,} : {minute: state.minute+1} // 삼항연산자!!
           )
@@ -29,38 +30,55 @@ class WorldClock extends React.Component {
 
   }
 
+  handlingClick = (event) => {
+    console.log(event.target.value)
+    this.setState({stop: event.target.value})
+    clearInterval(this.timer)
+  }
+
   render(){ //하나의 약속된 함수!! React.Component가 읽어서 보여줄 것이다!! 라는 함수!! python에 render 같은 느낌!!
       return(
     <div className={"WorldClock"}>
       <h2>도시 : {this.props.city}</h2> 
       <p>시간 : {this.state.hour}시 {this.state.minute}분</p>
+      <button value={true} onClick={this.handlingClick}>멈춰!</button>
     </div>
   );
   }
 }
 
-function App() { 
-  const cityTimeDate = [ //변하는 녀석을 이렇게 만들어서 처리를 한다
+class App extends React.Component {
+  constructor(props){
+    super(props)
+    this.cityTimeDate = [ //변하는 녀석을 이렇게 만들어서 처리를 한다
       ['서울', 10],
       ['부산', 10],
       ['베이징', 9],
       ['시드니', 12],
       ['LA', 17]
-  ]
-  
-  const WorldClockList = cityTimeDate.map((citytime, index)=><WorldClock city={citytime[0]} time={citytime[1]} key={index}/>)
-  
+    ]
+  this.state = {
+    content: ''
+  }
+}
+
+handlingChange = (event) => {
+  this.setState({content: event.target.value})
+}
+
+render(){
   return (
   <div className="App">
   <h1 className={'myStyle'}>안녕하세요</h1> 
       <div className={'post'}>
       첫 게시글 입니다!
+      <textarea value={this.state.content} onChange={this.handlingChange}></textarea>
       </div>
-      {WorldClockList}
+      {this.cityTimeDate.map((citytime, index)=><WorldClock city={citytime[0]} time={citytime[1]} key={index}/>)}
   </div>
   );
 }
-
+}
 
 //컴포넌트 수출!!
 export default App;
