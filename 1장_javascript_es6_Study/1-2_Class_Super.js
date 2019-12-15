@@ -1,4 +1,4 @@
-class Animal{   //상속! (밑에 Lion 보고 오세요!!)
+class Animal{   //상속! (밑에 Lion 보고 오세요!!) [2번]
     constructor(leg){ //초기값들 파이썬에서는 def __init__(self):
         this.leg = leg
     }
@@ -9,7 +9,7 @@ class Animal{   //상속! (밑에 Lion 보고 오세요!!)
 
 }
 
-class Lion{ //Class (이거부터 보세요!!!)
+class Lion{ //Class (이거부터 보세요!!!) [1번]
     constructor(name){ //초기값들 파이썬에서는 def __init__(self):
         this.name = name
     }
@@ -20,7 +20,7 @@ class Lion{ //Class (이거부터 보세요!!!)
 
 }
 
-class Tiger extends Animal{ // 상속 받기!!
+class Tiger extends Animal{ // 상속 받기!! [3번]
     constructor(name, leg){ //초기값들 파이썬에서는 def __init__(self):
         super(leg) //부모의 constructor의 input이다!! 이거 leg 인수는 super class constructor의 인수랑 같아야됨 constructor(leg){this.leg = leg}
         this.name = name
@@ -32,7 +32,8 @@ class Tiger extends Animal{ // 상속 받기!!
     }
 }
 
-myLion = new Lion("King") //객체를 설정! 인수를 통해서 constructor로 전달!
+
+myLion = new Lion("King") //객체를 설정! 인수를 통해서 constructor로 전달! [4번]
 myLion.getName()
 
 myTiger = new Tiger("Chang", 4)
