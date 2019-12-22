@@ -39,6 +39,11 @@ class WorldClock extends React.Component {
     console.log("  Child) 업데이트")
   }
 
+  componentWillUnmount(){
+    console.log(" Child) 언마운트!!")
+    clearInterval(this.timer)
+  }
+
   handlingClick = (event) => {
     console.log(event.target.value)
     this.setState({stop: event.target.value})
@@ -90,7 +95,6 @@ handlingClick = (event) => {
 }
 
 render(){
-  console.log("Parent) 랜더링.")
   return (
   <div className="App">
   <h1 className={'myStyle'}>안녕하세요</h1> 

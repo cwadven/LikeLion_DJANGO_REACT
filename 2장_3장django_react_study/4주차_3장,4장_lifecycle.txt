@@ -192,3 +192,29 @@ render(){
 //3번 handlingClick을 만든다
 //4번 onClick 하는 이벤트를 적는다
 //5번 show:true만 있던것 prevState효과를 넣어서 클릭하면 변하는 그런 방식으로 만든다
+
+6. 메모리 소모 때문에 WorldClock안에 componentWillUnmount 함수를 추가!
+  componentWillUnmount(){
+    console.log(" Child) 어마운트!!")
+    clearInterval(this.timer)
+  }
+
+7. App 클래서에 console.log("Parent) 랜더링.")를 삭제
+
+8. 총정리
+i. State 구조 설정
+ii. 컴포넌트가 Mount 하기 전에 할 설정
+iii. setState X
+
+ComponentDidMount(큰 데이터 다운로드 같은 것) :
+1. 필요한 데이터 요청
+2. 각종 비동기 요청
+
+componentDidUpdate :
+1. 업데이트 이후 수정할 때
+2. if(){setState()} //if를 안하면 무한으로 될 수 있기 때문에! setState하면 업데이트가 되는 것이여서 분기처리를 하는것이다!
+
+CompoenntWillUnmount :
+1. 데이터 요청, 비동기 함수, 타이머 종료
+2. setState X
+100기가 짜리 끌려고 하면 종료를 안하면 100기가 짜리를 계속 다운로드 받아서!

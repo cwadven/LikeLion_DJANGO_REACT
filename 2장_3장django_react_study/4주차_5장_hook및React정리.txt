@@ -1,0 +1,17 @@
+1. hook은! state를 쓸 수 없었던 function에게 state을 쓸 수 있도록!
+import React, {useState} from 'react';
+2. Effect Hook, lifecycle(componentDidMount, componentDidUpdate, componentWillUnmount)를 대체할 수 있는것!
+import React, {useState, useEffect} from 'react';
+
+정리
+1. import React, {useState} from 'react';
+2. const [상태명, set상태명] = useState(상태명의 초기값)
+3. set상태명을 setState처럼 사용!
+
+결국 리엑트란?
+ReactDom
+App
+추가 : React Router - Page : 페이지 별로 하려고!! 링크를 걸어서 넘어가기
+상위컴포넌트 (prop)
+하위컴포넌트 (state)
+Redux - State : 하위컴포넌트들을 한번에 관리하고 싶을때!
