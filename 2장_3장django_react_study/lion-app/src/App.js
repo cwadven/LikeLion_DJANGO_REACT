@@ -20,14 +20,23 @@ class WorldClock extends React.Component {
           stop: false,
       } //상태를 저장할 수 있다!!
 
-      this.timer = setInterval(()=>{
-        this.setState((state)=>(
-            state.minute === 59 ? state.hour === 23 ? {hour:-1} : {hour: state.hour + 1,minute: 0,} : {minute: state.minute+1} // 삼항연산자!!
-          )
-        ) //1초마다 1분씩 늘어나게 만든다!! 일단 애매한게 (state)는 감싼다고 치자! 근데 왜 ({minute:state.minute+1})을 또 감쌈?
-    }, 10)
-    
+      
+    console.log("  Child) 시작합니다.")
 
+  }
+
+  componentDidMount(){
+    this.timer = setInterval(()=>{
+      this.setState((state)=>(
+          state.minute === 59 ? state.hour === 23 ? {hour:-1} : {hour: state.hour + 1,minute: 0,} : {minute: state.minute+1} // 삼항연산자!!
+        )
+      ) //1초마다 1분씩 늘어나게 만든다!! 일단 애매한게 (state)는 감싼다고 치자! 근데 왜 ({minute:state.minute+1})을 또 감쌈?
+  }, 5000)
+    console.log("  Child) 마운트되었습니다.")
+  }
+
+  componentDidUpdate(){
+    console.log("  Child) 업데이트")
   }
 
   handlingClick = (event) => {
@@ -58,15 +67,30 @@ class App extends React.Component {
       ['LA', 17]
     ]
   this.state = {
-    content: ''
+    content: '',
+    show: true,
   }
+  console.log("Parent) 시작합니다.")
+}
+
+componentDidUpdate(){
+  console.log("Parent) 업데이트")
+}
+
+componentDidMount(){
+  console.log("Parent) 마운트되었습니다.")
 }
 
 handlingChange = (event) => {
   this.setState({content: event.target.value})
 }
 
+handlingClick = (event) => {
+  this.setState((prevState)=>({show: !prevState.show}))
+}
+
 render(){
+  console.log("Parent) 랜더링.")
   return (
   <div className="App">
   <h1 className={'myStyle'}>안녕하세요</h1> 
@@ -74,7 +98,9 @@ render(){
       첫 게시글 입니다!
       <textarea value={this.state.content} onChange={this.handlingChange}></textarea>
       </div>
-      {this.cityTimeDate.map((citytime, index)=><WorldClock city={citytime[0]} time={citytime[1]} key={index}/>)}
+      <button onClick={this.handlingClick}>손가락 튕기기</button>
+      
+      {this.state.show && this.cityTimeDate.map((citytime, index)=><WorldClock city={citytime[0]} time={citytime[1]} key={index}/>)}
   </div>
   );
 }
